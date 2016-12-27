@@ -23,3 +23,29 @@ case class TypeCItemOrdered(orderItem: OrderItem)
 
 object SplitterDriver extends CompletableApp(4) {
 }
+
+class OrderRouter extends Actor {
+  val orderItemTypeAProcessor = context.actorOf(Props[OrderItemTypeAProcessor], "orderItemTypeAProcessor")
+  val orderItemTypeBProcessor = context.actorOf(Props[OrderItemTypeBProcessor], "orderItemTypeBProcessor")
+  val orderItemTypeCProcessor = context.actorOf(Props[OrderItemTypeCProcessor], "orderItemTypeCProcessor")
+
+  def receive = {
+    case OrderPlaced(order) =>
+      println(order)
+      order.orderItems foreach { case (itemType, orderItem) => itemType match {
+        case "TypeA" =>
+          println(s"OrderRouter: routing $itemType")
+          orderItemTypeAProcessor ! TypeAItemOrdered(orderItem)
+        case "TypeB" =>
+          println(s"OrderRouter: routing $itemType")
+          orderItemTypeBProcessor ! TypeBItemOrdered(orderItem)
+        case "TypeC" =>
+          println(s"OrderRouter: routing $itemType")
+          orderItemTypeCProcessor ! TypeCItemOrdered(orderItem)
+      }}
+
+      SplitterDriver.completedStep()
+    case _ =>
+      println("OrderRouter: received unexpected message")
+  }
+}
