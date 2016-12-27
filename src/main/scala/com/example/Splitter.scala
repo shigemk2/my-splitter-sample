@@ -69,3 +69,13 @@ class OrderItemTypeBProcessor extends Actor {
       println("OrderItemTypeBProcessor: received unexpected message")
   }
 }
+
+class OrderItemTypeCProcessor extends Actor {
+  def receive = {
+    case TypeCItemOrdered(orderItem) =>
+      println(s"OrderItemTypeCProcessor: handling $orderItem")
+      SplitterDriver.completedStep()
+    case _ =>
+      println("OrderItemTypeCProcessor: received unexpected message")
+  }
+}
