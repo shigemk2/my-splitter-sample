@@ -26,7 +26,8 @@ object SplitterDriver extends CompletableApp(4) {
   val orderItem1 = OrderItem("1", "TypeA", "An item of type A.", 23.95)
   val orderItem2 = OrderItem("2", "TypeB", "An item of type B.", 99.95)
   val orderItem3 = OrderItem("3", "TypeC", "An item of type C.", 14.95)
-  val orderItems = Map(orderItem1.itemType -> orderItem1, orderItem2.itemType -> orderItem2, orderItem3.itemType -> orderItem3)
+  val orderItem4 = OrderItem("4", "TypeC", "Extra item of type C.", 99.999)
+  val orderItems = Map(orderItem1.itemType -> orderItem1, orderItem2.itemType -> orderItem2, orderItem3.itemType -> orderItem3, orderItem4.itemType -> orderItem4)
   orderRouter ! OrderPlaced(Order(orderItems))
   awaitCompletion
   println("Splitter: is completed.")
