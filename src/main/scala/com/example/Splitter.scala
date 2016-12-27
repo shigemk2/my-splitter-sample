@@ -10,5 +10,11 @@ case class Order(orderItems: Map[String, OrderItem]) {
   }
 }
 
+case class OrderItem(id: String, itemType: String, description: String, price: Double) {
+  override def toString = {
+    s"OrderItem($id, $itemType, '$description', $price)"
+  }
+}
+
 object SplitterDriver extends CompletableApp(4) {
 }
