@@ -16,5 +16,10 @@ case class OrderItem(id: String, itemType: String, description: String, price: D
   }
 }
 
+case class OrderPlaced(order: Order)
+case class TypeAItemOrdered(orderItem: OrderItem)
+case class TypeBItemOrdered(orderItem: OrderItem)
+case class TypeCItemOrdered(orderItem: OrderItem)
+
 object SplitterDriver extends CompletableApp(4) {
 }
