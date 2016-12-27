@@ -2,5 +2,5 @@ package com.example
 
 import akka.actor._
 
-object SplitterDriver {
+object SplitterDriver extends CompletableApp(4) {
 }
